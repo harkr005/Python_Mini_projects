@@ -1,0 +1,112 @@
+body {
+    font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    /* existing styles */
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 75px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    /* New styles for a horizontal layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    animation: float 4s ease-in-out infinite; /* Apply the animation */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;/* Adjust this value to control the spacing */
+     margin-bottom: 20px; 
+}
+
+/* Define the animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Apply the animation to the element */
+#bandNameDisplay {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+button {
+    /* Your existing button styles */
+    transition: transform 0.3s ease-in-out; /* Add a smooth transition */
+}
+
+button:hover {
+    transform: scale(1.05); /* Make the button slightly larger on hover */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px); /* Moves the container up */
+    }
+    100% {
+        transform: translateY(0px); /* Moves it back down */
+    }
+}
+
+h1 {
+    text-shadow: 2px 2px 4px rgba(3, 181, 155, 0.79);
+    color: rgb(0, 0, 0); /* You might want to change the text color to stand out against the shadow */
+}
+
+/* --- Mobile Responsiveness --- */
+
+/* Target screens smaller than 600px wide (standard phone size) */
+@media (max-width: 600px) {
+    /* 1. Adjust the main container for smaller screens */
+    .container {
+        width: 90%; /* Take up most of the screen width */
+        padding: 20px 10px; /* Reduce padding */
+        gap: 15px;
+    }
+
+    /* 2. Stack the input groups vertically for mobile */
+    .input-group {
+        display: block; /* Change from flex/inline to block */
+        margin-bottom: 10px;
+    }
+    
+    /* 3. Make all text input and button full width */
+    input[type="text"], button {
+        width: 100%;
+        box-sizing: border-box; /* Include padding and border in the element's total width */
+        margin-top: 5px; /* Add space between label and input */
+    }
+
+    /* 4. Increase font size for better readability on mobile */
+    h1 {
+        font-size: 1.5em; /* Smaller title */
+    }
+}

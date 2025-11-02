@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Name Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <h1>Band Name Generator 🎸</h1>
+    <form action="/generate" method="post">
+        <div class="input-group">
+            <label for="city">What's the name of the city you grew up in?</label>
+            <input type="text" id="city" name="city" required>
+        </div>
+        <div class="input-group">
+            <label for="animal">What's your favorite animal's name?</label>
+            <input type="text" id="animal" name="animal" required>
+        </div>
+        
+        <form action="/generate" method="post">
+    <button type="submit">Generate Name</button>
+<button type="reset" onclick="clearBandName()">Reset</button></form>
+    </form>
+    {% if band_name %}
+    <p id="bandNameDisplay">Your band name is: "{{ band_name }}"</p>
+    {% endif %}
+</div>
+<script>
+    function clearBandName() {
+        var bandName = document.getElementById("bandNameDisplay");
+        if (bandName) {
+            bandName.innerHTML = "";
+        }
+    }
+</script>
+</body>
+</html>
