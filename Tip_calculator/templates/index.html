@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tip Calculator</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Tip Calculator 🤑</h1>
+
+        <form action="/calculate" method="post" onsubmit="return validateForm()">
+
+           
+
+            <div class="input-group">
+
+                <label for="amount">What was the total bill? ($)</label>
+
+                <input type="number" id="amount" name="amount" step="0.01" required>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <label for="tip">How much tip would you like to give? (%)</label>
+
+                <input type="number" id="tip" name="tip" required>
+
+            </div>
+
+
+
+            <div class="tip-options">
+
+                <button type="button" onclick="setTip(10)">10%</button>
+
+                <button type="button" onclick="setTip(15)">15%</button>
+
+                <button type="button" onclick="setTip(20)">20%</button>
+
+            </div>
+
+
+
+            <div class="input-group">
+    
+                <label for="split">How many people to split the bill?</label>
+    
+                <input type="number" id="split" name="split" required>
+    
+                <div id="split-error" class="error-message"></div>
+
+            </div>
+
+           
+
+            <div class="main-actions">
+    
+                <button type="submit">Calculate Tip</button>
+    
+                <button type="reset" onclick="clearResult()">Reset</button> 
+
+            </div>
+
+        </form>
+
+
+
+        {% if result %}
+
+        <p id="resultDisplay">{{ result }}</p>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <script>
+    // Function to set the tip input value
+    function setTip(percentage) {
+        document.getElementById('tip').value = percentage;
+    }
+
+    // UPDATED: Function to clear the result AND remove error states
+    function clearResult() {
+        // 1. Clear the primary result display
+        var resultDisplay = document.getElementById("resultDisplay");
+        if (resultDisplay) {
+            resultDisplay.innerHTML = "";
+        }
+        
+        // 2. Clear the split input error message
+        const splitErrorDiv = document.getElementById('split-error');
+        if (splitErrorDiv) {
+            splitErrorDiv.textContent = ""; 
+        }
+
+        // 3. Remove the red highlight class from the input field
+        const splitInput = document.getElementById('split');
+        if (splitInput) {
+            splitInput.classList.remove('input-error');
+        }
+
+        // Note: The form's default type="reset" behavior handles clearing the input values.
+    }
+    
+    // Existing validateForm function (no changes needed here)
+    function validateForm() {
+        const splitInput = document.getElementById('split');
+        const splitErrorDiv = document.getElementById('split-error');
+        const splitValue = splitInput.value;
+
+        // Reset previous error state before checking again
+        splitErrorDiv.textContent = ""; 
+        splitInput.classList.remove('input-error');
+
+        // Check if the value is empty, zero, or negative
+        if (!splitValue || parseFloat(splitValue) <= 0) {
+            splitErrorDiv.textContent = "Split count must be 1 or more!";
+            splitInput.classList.add('input-error'); 
+            return false; 
+        }
+        return true; 
+    }
+
+    </script>
+
+</body>
+
+</html>
